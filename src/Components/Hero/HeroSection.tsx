@@ -9,9 +9,6 @@ const HeroSection = (props: Props) => {
             <section className="bg-white dark:bg-gray-900 ">
                 <div className="container flex items-center justify-between h-fit  px-6 mx-auto">
                     <Movies />
-                    <Movies />
-                    <Movies />
-                    <Movies />
                 </div>
             </section>
         </div>
