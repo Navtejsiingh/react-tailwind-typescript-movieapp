@@ -2,8 +2,7 @@ import React, { useState } from 'react'
 import { useMyContext } from '../../Contexts/MyContext'
 
 const Pages: React.FC = () => {
-    const { pages, setPages } = useMyContext();
-    console.log(pages)
+
     return (
         <div className="Pages">
             <nav aria-label="Page navigation example">

@@ -6,27 +6,36 @@ import HeroSection from './Components/Hero/HeroSection';
 import Input from './Components/Input/Input';
 import { useMyContext } from './Contexts/MyContext';
 function App() {
-  const { searchedMovie, setMovies, setResponse, setPages } = useMyContext();
+  const { searchedMovie, setMovies, setResponse, setPages, setIsLoading } = useMyContext();
   useEffect(() => {
-    getMovies({
-      s: searchedMovie, page: 1
-    })
-      .then((res) => {
-        setResponse(res.Response)
-        if (res.Response) {
-          const totalResults = res.totalResults
-          const itemsPerPages = 10
-          const totalPages = Math.ceil(totalResults / itemsPerPages)
-          const pages = [...Array(totalPages)].map((_, index) => index + 1)
-          setPages(pages)
-          setMovies(res.Search)
-
+    const fetchMovies = async () => {
+      setIsLoading(true);
+      try {
+        const res = await getMovies({ s: searchedMovie || "avengers", page: 1 });
+        if (res.Response === true) {
+          console.log(res)
+        } else {
+          console.log("false")
         }
-      })
-      .catch((error) => {
-        console.log("error", error)
-      })
-  }, [searchedMovie])
+        if (res.Response) {
+          const totalResults = res.totalResults;
+          console.log(totalResults)
+          const itemsPerPage = 10;
+          const totalPages = Math.max(1, Math.ceil(totalResults / itemsPerPage));
+          const pagesArray = [...Array(totalPages)].map((_, index) => index + 1);
+          setPages(pagesArray);
+          setMovies(res.Search);
+          setResponse(true)
+        }
+      } catch (error) {
+        setResponse(false)
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchMovies();
+  }, [searchedMovie]);
 
   return (
     <div className="App">
