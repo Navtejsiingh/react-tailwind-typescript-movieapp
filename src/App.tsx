@@ -20,6 +20,7 @@ function App() {
           const pages = [...Array(totalPages)].map((_, index) => index + 1)
           setPages(pages)
           setMovies(res.Search)
+
         }
       })
       .catch((error) => {
