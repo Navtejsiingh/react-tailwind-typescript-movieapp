@@ -21,7 +21,10 @@ interface ContextType {
     setPages: Dispatch<SetStateAction<number[]>>
     isLoading: boolean
     setIsLoading: Dispatch<SetStateAction<boolean>>
-
+    currentPage: number
+    setCurrentPages: Dispatch<SetStateAction<number>>
+    type: string
+    setType: Dispatch<SetStateAction<string>>
 }
 const MyContext = createContext<ContextType | undefined>(undefined)
 
@@ -32,8 +35,10 @@ export const AppProvier: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [response, setResponse] = useState<boolean>(false)
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const [pages, setPages] = useState<number[]>([])
+    const [currentPage, setCurrentPages] = useState<number>(1)
+    const [type, setType] = useState<string>('')
     return (
-        <MyContext.Provider value={{ movies, setMovies, searchedMovie, setSearchedMovie, response, setResponse, pages, setPages, isLoading, setIsLoading }}>
+        <MyContext.Provider value={{ movies, setMovies, searchedMovie, setSearchedMovie, response, setResponse, pages, setPages, isLoading, setIsLoading, currentPage, setCurrentPages, type, setType }}>
             {children}
         </MyContext.Provider>
     )
